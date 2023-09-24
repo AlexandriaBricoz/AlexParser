@@ -56,6 +56,7 @@ def delete():
 
 cursor.execute("SELECT * FROM NewTable;")
 results = cursor.fetchall()
+conn.commit()
 soup = BeautifulSoup(src,"lxml")
 conn.row_factory = sqlite3.Row
 i = 0
@@ -65,8 +66,9 @@ l = Perebor('pereborH.txt')
 print(l)
 Sup(i,l)
 cursor.execute("SELECT * FROM NewTable;")
-results = cursor.fetchall()
-hol(results,i)
+conn.commit()
+results2 = cursor.fetchall()
+hol(results2,i)
 delete()
 cursor.close()
 conn.close()
