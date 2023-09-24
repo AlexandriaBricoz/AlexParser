@@ -41,7 +41,7 @@ def Plo(i,st,c):
     for a in c:
         i = i+1
         cursor.execute("INSERT INTO NewTable (id, teg, text) VALUES (?, ?, ?);", (i, st, a.text))
-        conn.commit()
+    conn.commit()
     return i
 def hol(results,i):
     for n in range(i):
@@ -56,7 +56,6 @@ def delete():
 
 cursor.execute("SELECT * FROM NewTable;")
 results = cursor.fetchall()
-# print(results)
 soup = BeautifulSoup(src,"lxml")
 conn.row_factory = sqlite3.Row
 i = 0
