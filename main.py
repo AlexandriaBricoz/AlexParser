@@ -4,9 +4,7 @@ with open ("FFf.html") as file:
     src = file.read()
 conn = sqlite3.connect('/Users/aleksey/Documents/Untitled')
 cursor = conn.cursor()
-cursor.execute("SELECT * FROM NewTable;")
-results = cursor.fetchall()
-print(results)
+
 
 def Ii(i):
     cursor.execute(f"SELECT COUNT(*) FROM NewTable;")
@@ -49,22 +47,28 @@ def hol(results,i):
     for n in range(i):
         print(results[n])
 
+def delete():
+    print("Желаете очистить таблицу?(YES or NO)")
+    s = input()
+    if s == "YES":
+        cursor.execute("DELETE FROM NewTable;")
+        conn.commit()
+
+cursor.execute("SELECT * FROM NewTable;")
+results = cursor.fetchall()
+# print(results)
 soup = BeautifulSoup(src,"lxml")
 conn.row_factory = sqlite3.Row
 i = 0
 i=Ii(i)
-
+hol(results,i)
 l = Perebor('pereborH.txt')
 print(l)
 Sup(i,l)
 cursor.execute("SELECT * FROM NewTable;")
 results = cursor.fetchall()
 hol(results,i)
-print("Желаете очистить таблицу?(YES or NO)")
-s = input()
-if s == "YES":
-    cursor.execute("DELETE FROM NewTable;")
-    conn.commit()
+delete()
 cursor.close()
 conn.close()
 
