@@ -2,20 +2,47 @@ import sqlite3
 from bs4 import BeautifulSoup
 with open ("FFf.html") as file:
     src = file.read()
-#print(src)
 conn = sqlite3.connect('/Users/aleksey/Documents/Untitled')
 cursor = conn.cursor()
 cursor.execute("SELECT * FROM NewTable;")
 results = cursor.fetchall()
 print(results)
 
-def Sup(b):
-    ff=soup.find_all(b)
-    return ff
-def Plo(c,i,b):
+def Ii(i):
+    cursor.execute(f"SELECT COUNT(*) FROM NewTable;")
+    count = cursor.fetchone()[0]
+    if count == 0:
+        i = 0
+    else:
+        cursor.execute("SELECT id FROM NewTable ORDER BY id DESC LIMIT 1;")
+        i = int(cursor.fetchall()[0][0])
+    return i
+def Perebor(f):
+    with open(f, 'r') as file:
+        lines = file.readlines()
+    l = []
+    for j in lines:
+        l.append(j.rsplit('\n', 1)[0])
+    print(l)
+    print("Желаете добавить тег?(YES or NO)")
+    k = input()
+    while k == "YES":
+        l.append(input())
+        print("Желаете добавить тег?(YES or NO)")
+        k = input()
+        print(l)
+    return l
+
+def Sup(i,l):
+    c = []
+    for st in l:
+        c = soup.find_all(st)
+        i = Plo(i,st,c)
+    return c
+def Plo(i,st,c):
     for a in c:
         i = i+1
-        cursor.execute("INSERT INTO NewTable (id, teg, text) VALUES (?, ?, ?);", (i, b, a.text))
+        cursor.execute("INSERT INTO NewTable (id, teg, text) VALUES (?, ?, ?);", (i, st, a.text))
         conn.commit()
     return i
 def hol(results,i):
@@ -24,17 +51,12 @@ def hol(results,i):
 
 soup = BeautifulSoup(src,"lxml")
 conn.row_factory = sqlite3.Row
-global ID
-i=0
-cursor.execute(f"SELECT COUNT(*) FROM NewTable;")
-count = cursor.fetchone()[0]
-if count == 0:
-    i = 0
-else:
-    cursor.execute("SELECT id FROM NewTable ORDER BY id DESC LIMIT 1;")
-    i = int(cursor.fetchall()[0][0])
-m = input()
-i = Plo(Sup(m),i,m)
+i = 0
+i=Ii(i)
+
+l = Perebor('pereborH.txt')
+print(l)
+Sup(i,l)
 cursor.execute("SELECT * FROM NewTable;")
 results = cursor.fetchall()
 hol(results,i)
