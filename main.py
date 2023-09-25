@@ -1,12 +1,10 @@
 import sqlite3
 from bs4 import BeautifulSoup
-with open ("FFf.html") as file:
+with open ('FFf.html') as file:
     src = file.read()
 conn = sqlite3.connect('/Users/aleksey/Documents/Untitled')
 cursor = conn.cursor()
-
-
-def Ii(i):
+def CountI(i):
     cursor.execute(f"SELECT COUNT(*) FROM NewTable;")
     count = cursor.fetchone()[0]
     if count == 0:
@@ -15,7 +13,7 @@ def Ii(i):
         cursor.execute("SELECT id FROM NewTable ORDER BY id DESC LIMIT 1;")
         i = int(cursor.fetchall()[0][0])
     return i
-def Perebor(f):
+def CollectTags(f):
     with open(f, 'r') as file:
         lines = file.readlines()
     l = []
@@ -30,29 +28,27 @@ def Perebor(f):
         k = input()
         print(l)
     return l
-
-def Sup(i,l):
+def SearchByTags(i,l):
     c = []
     for st in l:
         c = soup.find_all(st)
-        i = Plo(i,st,c)
+        i = InsertDB(i,st,c)
     return c
-def Plo(i,st,c):
+def InsertDB(i,st,c):
     for a in c:
         i = i+1
         cursor.execute("INSERT INTO NewTable (id, teg, text) VALUES (?, ?, ?);", (i, st, a.text))
     conn.commit()
     return i
-def hol(results,i):
+def PrintDB(results1,i):
     for n in range(i):
-        print(results[n])
-
-def delete():
+        print(results1[n])
+def DeleteDB():
     print("Желаете очистить таблицу?(YES or NO)")
     s = input()
     if s == "YES":
-        cursor.execute("DELETE FROM NewTable;")
-        conn.commit()
+        cursor1.execute("DELETE FROM NewTable;")
+        conn1.commit()
 
 cursor.execute("SELECT * FROM NewTable;")
 results = cursor.fetchall()
@@ -60,18 +56,21 @@ conn.commit()
 soup = BeautifulSoup(src,"lxml")
 conn.row_factory = sqlite3.Row
 i = 0
-i=Ii(i)
-hol(results,i)
-l = Perebor('pereborH.txt')
+i=CountI(i) # i=колличество строк до изменения DB
+PrintDB(results,i)
+l = CollectTags('pereborH.txt')
 print(l)
-Sup(i,l)
-cursor.execute("SELECT * FROM NewTable;")
+SearchByTags(i,l)
 conn.commit()
-results2 = cursor.fetchall()
-hol(results2,i)
-delete()
 cursor.close()
-conn.close()
+conn1 = sqlite3.connect('/Users/aleksey/Documents/Untitled')
+cursor1 = conn1.cursor()
+cursor1.execute("SELECT * FROM NewTable;")
+results2 = cursor1.fetchall()
+PrintDB(results2,i)
+DeleteDB()
+cursor1.close()
+conn1.close()
 
 #SELECT MAX(id) FROM NewTable;
 
