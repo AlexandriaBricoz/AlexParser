@@ -74,6 +74,6 @@ if __name__ == '__main__':
                 t = 0
                 for f in wokers:
                     t = t+1
-                    print(t, '-Должность:', f.__class__.__name__, ' Имя:', f.get_name(),' Возрст:',f.get_age(),'Зарплата:', f.get_zp())
+                    print(t, '-Должность:', f.__class__.__name__, ' Имя:', f.get_name(),' Возраст:',f.get_age(),'Зарплата:', f.get_zp())
             case _:
                 print('  До свидания')
