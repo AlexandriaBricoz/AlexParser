@@ -1,6 +1,6 @@
 import sqlite3
 from bs4 import BeautifulSoup
-with open ('FFf.html') as file:
+with open ('Mvideo.html') as file:
     src = file.read()
 conn = sqlite3.connect('/Users/aleksey/Documents/Untitled')
 cursor = conn.cursor()
