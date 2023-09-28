@@ -1,8 +1,8 @@
-import random
+
 class Human:
     __age = 0
     def info(self):
-        print("set_age - вводит возраст\nget_age - выводит возраст\nmoi - вывод: привет")
+        print('set_age - вводит возраст\nget_age - выводит возраст\nmoi - вывод: привет')
     def __init__(self,a,b,z):
         if a > 0 and a<120:
             self.__age = a
@@ -13,7 +13,7 @@ class Human:
     def __Error(self):
         print('Вы ввели некоректное значение. Попробуйте ещё раз.')
     def set_age(self,a):
-        while a<0:
+        while a<0 :
             self.__Error()
             a = int(input())
         self.__age = a
@@ -65,7 +65,7 @@ if __name__ == '__main__':
                 t = 0
                 for f in wokers:
                     t = t + 1
-                    print(t,' -  должность:',f.__class__.__name__, ' имя:', f.get_name(), ' зарплата:',f.get_zp())
+                    print(t,'-  Должность:',f.__class__.__name__, ' Имя:', f.get_name(), ' Зарплата:',f.get_zp())
                 print(f'  Выберете сотруддника 1-{len(wokers)}')
                 k = int(input())
                 print('  Введите новую зарплату')
@@ -74,6 +74,6 @@ if __name__ == '__main__':
                 t = 0
                 for f in wokers:
                     t = t+1
-                    print(t, ' -  должность:', f.__class__.__name__, ' имя:', f.get_name(),' возрст:',f.get_age(),'зарплата:', f.get_zp())
+                    print(t, '-Должность:', f.__class__.__name__, ' Имя:', f.get_name(),' Возрст:',f.get_age(),'Зарплата:', f.get_zp())
             case _:
                 print('  До свидания')
