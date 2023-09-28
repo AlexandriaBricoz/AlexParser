@@ -1,6 +1,6 @@
 
 class Human:
-    __age = 0
+    __age =  0
     def info(self):
         print('set_age - вводит возраст\nget_age - выводит возраст\nmoi - вывод: привет')
     def __init__(self,a,b,z):
